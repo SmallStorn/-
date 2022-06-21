@@ -1,0 +1,1011 @@
+//思路
+//对弈算法
+choicew（）{				//黑棋先手
+	definecrossing();	//定义交叉点
+	while（true）{
+		getmousemsg（）；	//判断鼠标位置
+		downblack（）；		//黑棋落子
+		if(judge(black)){	//判断黑棋是否胜利
+			win_b();		//结束，黑棋胜利
+			return();
+		}else{
+			for（crossing[i][j]==0){
+				crossing[i][j].sorce=0;//清空内容
+				value_one(int x,int y,int color);//判断指定位置价值并写入
+			}
+			static struct value_max[10];
+			for（crossing[i][j]==0){				//搜索并保存value值最大的10个点位	
+				if(crossing[i][j]<min(value_max)){
+					main(value_max)=crossing
+				}
+			}
+			/**************************************************///深度搜索
+			for(x in value_max){				//保存每个落点的value_whole
+					
+			}
+			/*************************************************///
+			a=x;b=y;							//保存最优解
+		}
+		down_white(int x,int y,int color);
+		judge(white){						//判断白色是否胜利
+			win_w();
+			return ;
+		}
+	}
+}
+/*=====================================
+===	关键点： 
+===	value_one()函数
+===	深度搜索
+=======================================*/
+
+
+//value_one()
+int value_one(int x,int y,int color){
+	if(crossing[i][j].rt!=0){			//只有空点位才能落子
+		return ;
+	}esle{
+		int v1=value_num(int x1,int y1,int color,int dirction);
+		int v2=value_num(int x1,int y1,int color,int dirction);
+		int v3=value_num(int x1,int y1,int color,int dirction);
+		int v4=value_num(int x1,int y1,int color,int dirction);
+		int value=v1+v2+v3+v4;
+		crossing[i][j].sroce=value
+	}
+
+}
+
+/*=============================================
+===int value_num(int x,int y,int color,int direction);
+===函数作用：
+===计算在指定方向上的价值
+===========================
+===思路：===============================
+===计算有多少个己方五元组，每个五元组中每有n个己方棋子得分6^n分
+===计算有多少个对方的五元组，每个五元组中每有n个对方棋子得(1/4)(6^n)分。
+===即：
+===每个五元组中 		我方得分 		对方得分（我放的分的3/4）
+=== 有几个棋子
+=== 	0 				1 				0
+=== 	1 				10 				5
+===		2 				100 			50
+===		3 				1000			500
+===		4 				100000			5000
+=============================================================================得分计算--废弃!
+===要求:
+===我方5连>阻止对方5连>我方4连>阻止对方4连>我方3连>阻止对方3连>我方2连>阻止2连
+===对方基础分为1
+=== 棋子数				我方得分			对方得分
+===a	0				A 1 				a 0
+===b 	1 				B 5 				b 5
+===c 	2 				C 25				c 25
+===d 	3 				D 1200				d 125
+===e  	4 				E 50000				e 10000
+=========================================================================
+行动						可能得的最低分      可能得最高分
+对方1连 					0 					0
+我方1连					1 					1
+对方2连					4a+b 				4(a+4b)
+我方2连					4A+B 				4(A+4B)
+对方3连 					3a+b+c 				4(2b+3c)
+我方3连					3A+B+C 				4(2B+3C)
+对方4连 					a+2b+c+d 			4(b+2c+2d)
+我方4连 					A+2B+C+D 			4(B+2C+2D)
+对方5连 					a+b+c+d+e 			4(2c+2d+e)
+我方5连					A+B+C+D+E 			
+{
+//	4a+b>1
+//	4A+B>3a+12b					4+B>12b
+
+	3a+b+c>3A+12B				b+c>3+12B
+	3A+B+C>4(2b+3c)				3+B+C>8b+12c
+	a+2b+c+d>4(2B+3C)			2b+c+d>8B+12C
+	A+2B+C+D>4(b+2c+2d)			1+2B+C+D>4b+8c+8d
+	a+b+c+d+e>4(B+2C+2D)		b+c+d+e>4B+8C+8D
+	A+B+C+D+E>4(2c+2d+e)		1+B+C+D+E>8c+8d+4e
+
+	{
+	a=0;A=1
+	b=2;B=5
+	c=60;C=710
+	d=8500;D=60000
+	e=478000;E=2000000
+	}
+}
+
+
+
+==========================================================================================废弃
+================一个点位最多对对方价值最大的情况分析
+情况						示例	(1为我方棋子,0为空位)				得分
+对方可以组成3连 		 	110/101								>4(b+c+c+c+b) 	4(2b+3c) 				
+对方可以组成4连			1110/1101							>4(c+d+d+c+b)	4(b+2c+2d)
+对方可以组成5连			11110/11101/11011					>4(c+d+e+d+c)	4(2c+2d+e)
+即:{
+	E>2(2c+2d+e)=41200
+	e>2(B+2C+2D)=
+	D>2(b+2c+2d)=1220
+	d>2(2B+3C)=
+	C>2(2b+3c)=225
+	c>2(4B+A)=
+}
+
+===============================================*/
+int  value_numm(int x,int y,int color,int dircetion){
+	if(color==b)colour=w;
+	elseif(color==w)colour=b;
+	int value=0;//指定方向上的价值
+	if(direction==upanddown){
+		int i0, j0,i1,j1,i2,j2;
+		/*=====================
+		==i0,j0:保存落子位置
+		==i1,j1:上边界位置
+		==i2,j2:下边界位置
+		=====================*/
+		int l;	//规定方向最大距离
+		int value=0;
+		i0 = i;
+		j0 = j;
+		k = 0;
+		l = 4;
+		{
+			//检查上边边界位置
+			while (crossing[i][j-1].rt != colour && j - 1 >= 0&&l>0)
+			{
+				l--;
+				j -= 1;
+			}
+			j1=j;
+			//还原落子位置
+			i = i0;
+			j = j0;
+			l=4;
+			//检查下方边界位置
+			while (crossing[i][j + 1].rt == colour && j + 1 <= 14&&l>0)
+			{
+				l--;
+				j += 1;
+			}
+			j2=j;
+			l=j2-j1;//l为该方向可用的最大长度
+			if(l<5){
+			return value;	//无法在该方向组成5子，那将毫无意义
+			}else{
+				for(k=0;k<l-4;k++){
+					num=0;					//该五元组中有几个我方棋子
+					for(j=j1;j<j1+5;j++){
+						if(crossing[i][j].rt==color)num++;
+					}
+					value=value+value_count(one_num);
+					j1++;
+				}
+			}
+
+		}
+	}else if(direction==leftandright){
+		//...
+	}else if(direction==upleftanddownright){
+		//...
+	}else if(direction==downleftandupright){
+		//...
+	}
+}
+
+
+{
+switch(num){
+					case 1:
+						value+=1;
+						break;
+					case 2:
+						value+=5;
+						break;
+					case 3:
+						value+=25;
+						break;
+					case 4:
+										//已经有四个子，加上要落得子共5子胜利！
+						value+=10000;//胜利！
+						if(color=b)win_b();
+						else if(color=w)win_w();
+						break;
+					}
+}
+
+//=======================================================================
+//====================重写胜利判断函数int judge(int color)================
+//======================================================================//
+int judge(int color){
+	int x,y,x0,y0,x1,y1,x2,y2;//x0,y0保存a,b的值,x1,y1保存起始段点,x2,y2保存末端点
+	int l=4;
+	x0=a;y0=b;
+	//上下判断
+	x=x0,y=y0;
+	for(l=0;crossing[x][y-1].rt==color&&l<4&&y>0;l++){
+		y--;
+	};
+	x1=x;y1=y;
+	x=x0,y=y0;
+	for(l=0;crossing[x][y+1].rt==color&&l<4&&y<14;l++){
+		y++;
+	}
+	x2=x;y2=y;
+	if(y2-y1+1>=5){
+		return 1;
+	}
+	//左右判断
+	x=x0,y=y0;
+	for(l=0;crossing[x-1][y].rt==color&&l<4&&x>0;l++){
+		x--;
+	};
+	x1=x;y1=y;
+	x=x0,y=y0;
+	for(l=0;crossing[x+1][y].rt==color&&l<4&&x<14;l++){
+		x++;
+	}
+	x2=x;y2=y;
+	if(x2-x1+1>=5){
+		return 1;
+	}
+	//左上-右下判断
+	x=x0,y=y0;
+	for(l=0;crossing[x-1][y-1].rt==color&&l<4&&y>0&&x>0;l++){
+		y--;
+		x--;
+	};
+	x1=x;y1=y;
+	x=x0,y=y0;
+	for(l=0;crossing[x+1][y+1].rt==color&&l<4&&y<14&&x<14;l++){
+		y++;
+		x++;
+	}
+	x2=x;y2=y;
+	if(y2-y1+1>=5){
+		return 1;
+	}
+	//左下-右上判断
+	x=x0,y=y0;
+	for(l=0;crossing[x+1][y-1].rt==color&&l<4&&y>0&&x<14;l++){
+		y--;
+		x++;
+	};
+	x1=x;y1=y;
+	x=x0,y=y0;
+	for(l=0;crossing[x-1][y+1].rt==color&&l<4&&y<14&&x>0;l++){
+		y++;
+		x--;
+	}
+	x2=x;y2=y;
+	if(y2-y1+1>=5){
+		return 1;
+	}
+
+}
+
+
+
+
+//搜索算法
+for (i = 0; i < 15; i++) {					//寻找价值最高点
+	for (j = 0; j < 15; j++) {
+		if (crossing[x][y].score < crossing[i][j].score) {
+			x = i; y = j;
+		}
+	}
+}
+
+
+
+
+//================================================================//
+===函数:int value_whole(int color);
+===作用:评价这局的价值
+===原理:all(value_color(int color))-all(value_color(int uncolor));
+===---------------------------------------------------------------
+===函数:int value_color(int color);
+===作用:评价每个颜色的价值
+===原理:all(color_num*value_num)
+===---------------------------------------------------------------
+===value_num:
+=== 3:1
+=== 4:10
+=== 5:100000
+//================================================================//
+int color_num(int same_color){
+	int color_value;
+	switch(same_color){
+		case 3:
+			color_value=1;
+		break;
+		case 4:
+			color_value=10;
+		break;
+		case 5:
+			color_value=100000;
+		break;
+	}
+	return color_value;
+}
+
+int value_whole(int color){
+	int uncolor;
+	if(color==rt_BLACK){
+		uncolor=rt_WHITE;
+	}else{
+		uncolor=rt_BLACK;
+	}
+	int i,j,l;
+	int same_color=0;
+	int value_whole=0;
+	int x_temp,y_temp,x_end,y_end;
+	for(y=0;y<15;y++){		
+		for(x=0;x<15;x++){
+			if(corssed[x][y].rt==color){
+				if(x<11){					//向右寻找
+				x_temp=x;y_temp=y;
+				
+				for(l=0;l<4;l++){
+					if(crossed[x+1][y].rt==color){
+						same_color++;
+					}else if(crossed[x+1][y].rt==uncolor){
+						break;
+					}else{
+						continue;
+					}
+					x++;
+				}
+
+				value_whole+=color_num(same_color);
+				x=x_temp;y=y_temp;
+				}
+
+				if(y<11){					向下寻找
+				x_temp=x;y_temp=y;
+				
+				for(l=0;l<4;l++){
+					if(crossed[x][y+1].rt==color){
+						same_color++;
+					}else if(crossed[x][y+1].rt==uncolor){
+						break;
+					}else{
+						continue;
+					}
+					y++;
+				}
+
+				value_whole+=color_num(same_color);
+				x=x_temp;y=y_temp;
+				}
+
+				if(x<11 && y<11){					//向右下寻找
+				x_temp=x;y_temp=y;
+				
+				for(l=0;l<4;l++){
+					if(crossed[x+1][y+1].rt==color){
+						same_color++;
+					}else if(crossed[x+1][y+1].rt==uncolor){
+						break;
+					}else{
+						continue;
+					}
+					x++;y++;
+				}
+
+				value_whole+=color_num(same_color);
+				x=x_temp;y=y_temp;
+				}
+
+				if(x>3&&y<11){				//向左下寻找
+				x_temp=x;y_temp=y;
+				
+				for(l=0;l<4;i++){
+					if(crossed[x-1][y+1].rt==color){
+						same_color++;
+					}else if(crossed[x-1][y+1].rt==uncolor){
+						break;
+					}else{
+						continue;
+					}
+					x--;y++;
+				}
+
+				value_whole+=color_num(same_color);
+				x=x_temp;y=y_temp;
+				}
+
+			}
+
+			if(corssed[x][y].rt=uncolor){
+
+				if(x<11){					//向右寻找
+				x_temp=x;y_temp=y;
+				
+				for(l=0;l<4;l++){
+					if(crossed[x+1][y].rt==uncolor){
+						same_color++;
+					}else if(crossed[x+1][y].rt==color){
+						break;
+					}else{
+						continue;
+					}
+					x++;
+				}
+
+				value_whole-=color_num(same_color);
+				x=x_temp;y=y_temp;
+				}
+
+				if(y<11){					向下寻找
+				x_temp=x;y_temp=y;
+				
+				for(l=0;l<4;l++){
+					if(crossed[x][y+1].rt==uncolor){
+						same_color++;
+					}else if(crossed[x][y+1].rt==color){
+						break;
+					}else{
+						continue;
+					}
+					y++;
+				}
+
+				value_whole-=color_num(same_color);
+				x=x_temp;y=y_temp;
+				}
+
+				if(x<11 && y<11){					//向右下寻找
+				x_temp=x;y_temp=y;
+				
+				for(l=0;l<4;l++){
+					if(crossed[x+1][y+1].rt==uncolor){
+						same_color++;
+					}else if(crossed[x+1][y+1].rt==color){
+						break;
+					}else{
+						continue;
+					}
+					x++;y++;
+				}
+
+				value_whole-=color_num(same_color);
+				x=x_temp;y=y_temp;
+				}
+
+				if(x>3&&y<11){				//向左下寻找
+				x_temp=x;y_temp=y;
+				
+				for(l=0;l<4;i++){
+					if(crossed[x-1][y+1].rt==uncolor){
+						same_color++;
+					}else if(crossed[x-1][y+1].rt==color){
+						break;
+					}else{
+						continue;
+					}
+					x--;y++;
+				}
+
+				value_whole-=color_num(same_color);
+				x=x_temp;y=y_temp;
+				}
+			}
+		}
+	}
+	return value_whole;
+}
+
+
+
+
+//=============================实现===============================//
+
+static struct coordinate crosssing[15][15];//保存坐标点位
+static struct coordinate crosssed[15][15];//保存坐标点位
+
+int value_whole;//棋局价值
+int value_one();//求单个位置价值
+
+coordinate seat_max[5];
+for(i=0;i<5;i++){
+	seat_max[i]=0;
+}
+
+coordiante value_sort(coordiante seat_max[]){	//对set_max[]进行排序
+	for(i=0;i<4;i++){
+		for(j=i+1;j<5;j++){
+			int min=j;
+			if(crossed[j]<crossed[min]){
+				min=j;
+			}
+			swap(&seat_max[j],&seat_max[i]);
+		}
+	}
+	return seat_max[];
+}
+void swap(coordinate *a,coordinate *b);
+void seap(coordinate *a,coordinate *b){
+	coordinate temp;
+	temp =*a;
+	*a=*b;
+	*b=temp;
+}
+
+for (i = 0; i < 15; i++) {					//寻找价值最高点
+	for (j = 0; j < 15; j++) {
+		if (crossed[seat_max[0].x][seat_max[0].y].score < crossed[i][j].score) {
+			//x = i; y = j;
+			seat_max[0]=crossed[i][j];
+			seat_max[]=value_sort(seat_max[]);
+
+		}
+	}
+}
+
+
+//深度搜索算法
+//===============================思路=============================//
+5层搜索 
+
+==============================//对set_max[]进行排序===============
+
+
+coordiante value_sort(coordiante seat_max[]){	
+	for(i=0;i<4;i++){
+		for(j=i+1;j<5;j++){
+			int min=j;
+			if(crossed[j]<crossed[min]){
+				min=j;
+			}
+			swap(&seat_max[j],&seat_max[i]);
+		}
+	}
+	return seat_max[];
+}
+
+void search_one(coordinate crossing[][],coordinate *seat_max[]){
+	int  i,j;
+	coordinate crosssed[15][15];//保存坐标点位
+	coordinate seat_max[5]={0};
+	crossed=crossing;
+	
+	for (i = 0; i < 15; i++) {					//寻找价值最高点
+		for (j = 0; j < 15; j++) {
+			if (crossed[seat_max[0].x][seat_max[0].y].score < crossed[i][j].score) {
+				//x = i; y = j;
+				seat_max[0]=crossed[i][j];
+				seat_max[]=value_sort(seat_max[]);
+			}
+		}
+	}
+	return;
+}
+
+/*=============================================================
+coordinate seat_max_1[5]={0};
+coordinate seat_max_2[5]={0};
+struct whole_value{
+	int x;
+	int y;
+	int rt;
+	int whole;
+}
+int max_value_one[5];
+int max_value_two[5];
+
+for (i = 0; i < 15; i++) {								//第一步	
+	for (j = 0; j < 15; j++) {
+		crossing[i][j].score = 0;
+		value_one(i,j,color);
+	}
+}
+search_one(crossing[][],seat_max_1[]);	
+int max=0;
+int max_sroce=0;
+for(k=0;k<5;k++){
+	down_color_temp(seat_max_1[k].x,seat_max_1[k].y,color);		//落子
+	max_value_one[k]=whole_value(color);						//计算value_whole
+	
+	for (i = 0; i < 15; i++) {								//第二步	
+		for (j = 0; j < 15; j++) {
+			crossing[i][j].score = 0;
+			value_one(i,j,uncolor);
+		}
+	}
+	
+	search_one(crossing[][],seat_max_2[]);
+	max=0;
+	max_sroce=0;
+
+
+	
+	undown_color_temp(seat_max_1[k].x,seat_max_1[k].y,color);	//收起棋子
+}
+
+
+//=============================================================================//
+
+//===========================================
+===void swap(coordinate *a,coordinate *b);
+===作用:交换值
+===========================================//
+
+void swap(coordinate *a,coordinate *b){
+	coordinate temp;
+	temp =*a;
+	*a=*b;
+	*b=temp;
+}
+
+
+//===========================================
+===coordinate value_sort(crrodiante max[]);
+===作用:数组排序
+=============================================//
+
+coordiante value_sort(coordiante seat_max[]){	
+	for(i=0;i<4;i++){
+		for(j=i+1;j<5;j++){
+			int min=j;
+			if(crossed[j]<crossed[min]){
+				min=j;
+			}
+			swap(&seat_max[j],&seat_max[i]);
+		}
+	}
+	return seat_max[];
+}
+//==================================================================
+===void search_one(coordinate crossing[][],coordinate *seat_max[]);
+===作用:寻找并保存5个最高点位
+===参数:
+===crossing[][]:棋盘局势
+===seat_max[]:最高值点位
+===================================================================//
+
+void search_one(coordinate crossing[][],coordinate *seat_max[]){
+	int  i,j;
+	coordinate crosssed[15][15];//保存坐标点位
+	coordinate seat_max[5]={0};
+	crossed=crossing;
+	
+	for (i = 0; i < 15; i++) {					//寻找价值最高点
+		for (j = 0; j < 15; j++) {
+			if (crossed[seat_max[0].x][seat_max[0].y].score < crossed[i][j].score) {
+				//x = i; y = j;
+				seat_max[0]=crossed[i][j];
+				seat_max[]=value_sort(seat_max[]);
+			}
+		}
+	}
+	return;
+}
+//===============================================================
+===choice_chess_p(int color);
+===作用:模拟人落子
+===============================================================//
+
+void choice_chess_p(){
+	int i,j;
+	for (i = 0; i < 15; i++) {								//清空并重新计算score值
+		for (j = 0; j < 15; j++) {
+			crossing[i][j].score = 0;
+			value_one(i,j,color,0);
+		}
+	}
+
+	int x = y = 0;
+	int m,n;
+	m=a;n=b;
+	for (i = 0; i < 15; i++) {			//找出价值最高的点
+		for (j = 0; j < 15; j++) {
+			if (crossing[x][y].score < crossing[i][j].score&&crossing[i][j].rt!=rt_BLACK && crossing[i][j].rt != rt_WHITE) {
+				x = i; y = j;
+			}
+		}
+	}
+//	a=x;b=y;
+	down_color_temp(x,y,color);
+	if(judge(color)){
+		a=m;b=n;
+		return 0;
+	}
+	a=m;
+	b=n;
+	return 1;
+}
+/*======================================================================================*/
+for (i = 0; i < 15; i++) {								//清空并重新计算score值
+	for (j = 0; j < 15; j++) {
+		crossing[i][j].score = 0;
+		value_one(i,j,color);
+	}
+}
+
+int x_set,y_set,l,load_1,load_3;													//设为全局变量
+int value_whole_end[];
+int value_p;
+coordinate set_max[]={0};
+coordinate set_max_s[]={0};
+int value_end[];
+int value_max=0;
+x_set=a;y_set=b;
+search_one(crossing[][],seat_max[]);
+for(i=0;i<5;i++){
+	down_color_temp(seat_max[i].x,seat_max[i].y,color);		//机器模拟落子
+	load_1=i;												//记录路径
+	
+	value_p=choice_chess_p(int uncolor);					//模拟人落子//第二步							
+	if(value_p==0){						
+		undown_color_temp(a,b);		
+		undown_color_temp(seat_max[i].x,seat_max[i].y);	
+		continue;
+	}
+															
+	for (i = 0; i < 15; i++) {								//清空并重新计算score值//第三步
+		for (j = 0; j < 15; j++) {
+			crossing[i][j].score = 0;
+			value_one(i,j,color);
+		}
+	}
+
+	search_one(srossing[][],seat_max_s[]);			
+	l=0;	
+	for(j=0;j<5;j++){
+		down_color_temp(seat_max_s[j].x,seat_max_s[j].y,color);		//模拟机器落子
+	
+		if(judge(color)==0){	//可以胜利
+			//================================????????
+			load_2=j;
+			undown_color_temp(seat_max_s[j].x,seat_max_s[j].y);
+			undown_color_temp(a,b);
+			a=x_set;b=y_set;
+			undown_color_temp(seat_max[i].x,seat_max[i].y);
+			
+			break;
+		}
+
+		
+		value_end[j]=value_whole();						//计算value_whole
+		flag=1;
+		if(value_end[j]>seat_max_s[i]){				//剪枝//*****************/
+			undown_color_temp(seat_max_s[j].x,seat_max_s[j].y);
+			falg=0;
+			continue;
+		}											
+		if(value_end[j]>value_end[max]){
+			max=l;
+			load_2=j;  
+		}	
+		
+		undown_color_temp(seat_max_s[j].x,seat_max_s[j].y);
+	}
+	if(flag==1)	seat_max_s[i].whole=value_end[max];
+	else seat_max_s[i].whole=0;
+
+	undown_color_temp(a,b);
+	undown_color_temp(seat_max[i].x,seat_max[i].y);					
+}
+
+
+
+//==================================================================================================================
+====================================================================================================================
+==================================================================================================================//
+
+int step_1_i,step_1_j;
+int step_2_i,step_2_j;
+int step_3_i,step_3_j;														//i,j
+int step_1_load,step_2_load,step_3_load;									//记录路径
+int step_1_value[],step_2_value[],step_3_value[];							//记录每层value_whole
+int max_1_vlaue[]=max_2_vlaue[]=max_3_vlaue[]={0};							
+coordinate seat_1_max[]=seat_2_max[]=set_2_min[]=seat_3_max[]={0};
+
+for (step_1_i = 0; step_1_i < 15; step_1_i++) {								//清空并重新计算score值
+	for (step_1_j = 0; step_1_j < 15; step_1_j++) {
+		crossing[step_1_i][step_1_j].score = 0;
+		value_one(step_1_i,step_1_j,color,0);
+	}
+}
+search_one(crossing[][],seat_1_max[]);
+for(step_1_i=0;step_1_i<5;step_1_i++){
+	down_color_temp(seat_1_max[step_1_i].x,seat_1_max[step_1_i].y,color);		//机器模拟落子
+	//----------------------------------------------------------------	
+	//人落子
+	for (step_2_i = 0; step_2_i < 15; step_2_i++) {								//清空并重新计算score值
+		for (step_2_j = 0; step_2_j < 15; step_2_j++) {	
+			crossing[step_2_i][step_2_j].score = 0;
+			value_one(step_2_i,step_2_j,color,0);
+		}
+	}
+	search_one(crossing[][],seat_1_max[]);
+	for(step_2_i=0;step_2_i<5;step_2_i++){
+		down_color_temp(seat_2_max[step_2_i].x,seat_2_max[step_2_i].y,color);		//模拟人落子
+		
+		if(step_1_i==0){
+			if(step_2_i==0){
+				step_1_value[0]=step_2_value[0];
+			}
+			if(step_1_value[0]<step_2_value[0]){
+				step_1_value[0]=step_2_value[0];
+			}
+		}else{
+			if(value_1_max>step_2_value[step_2_i]){
+				step_1_value[step_1_i]=0;
+				break;	
+			}
+		}
+		//---------------------------------------------------------------------
+		if(value_1_max>value_2_min){
+			break;	
+		}
+		//机器落子
+
+		if(step_2_i==0){value_max_end=step_1_value[0]};	
+		if(value_2_min<step_1_value[step_2_i]){
+			value_2_min=step_1_value[step_2_i];								//寻找最小的value_whole
+		}
+		//----------------------------------------------------------------------
+		
+		down_color_temp(seat_2_max[step_2_i].x,seat_2_max[step_2_i].y,color);		
+	}
+	//------------------------------------------------------------
+	if(step_1_i==0){value_max_end=step_1_value[0]};	
+	if(value_1_max<step_1_value[step_1_i]){
+		value_1_max=step_1_value[step_1_i];								//寻找最大的value_whole
+		load=step_1_i;
+	}	
+	undown_color_temp(seat_max[step_1_i].x,seat_max[step_1_i].y,color);		//注销机器模拟的落子1	
+}
+
+a=seat_1_max[load].x;
+b=seat_1_max[load].y;
+down_color(a,b);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+search_one(crossing[][],seat_1_max[]);
+for(step_1_i=0;step_1_i<5;step_1_i++){
+	down_color_temp(seat_1_max[].x,seat_1_max[].y,color);
+	search_one(crossing[][],seat_2_max[]);
+	for(step_2_i=0;step_2_i<5;step_2_i++){
+		down_color_temp(seat_2_max[].x,seat_2_max[].y,uncolor);
+		search_one(crossing[][],seat_3_max[]);
+		for(step_3_i=0;step_3_i<5;step_3_i++){
+			down_color_temp(seat_3_max[].x,seat_3_max[].y,color);
+			step_3_value[step_3_i]=value_whole(color);
+			if(step_3_i==0){
+				step_2_value[step_2_i]=step_3_value[step_3_i];
+			}
+			if(step_3_value[step_3_i]>step_2_value[step_2_i]){			//max
+				step_2_value[step_2_i]=step_3_value[step_3_i];
+			}
+			if(step_2_i>0){
+				if(step_2_value[min]<step_3_value[step_3_i]){
+				break;
+				}
+			}
+			undown_color_temp(seat_3_max[].x,seat_3_max[].y);
+		}
+		if(step_2_i==0){
+			step_1_value[step_1_i]=step_2_value[step_2_i];
+			min=0;
+		}
+		if(step_2_value[step_2_i]<step_1_value[step_1_i]){				//min
+			step_1_value[step_1_i]=step_2_value[step_2_i];
+			min=step_2_i;
+		}
+		if(step_1_i>0){
+			if(step_1_value[max]>step_2_value[step_2_i]){
+				break;
+			}
+		}
+		undown_color_temp(seat_2_max[].x,seat_2_max[].y);
+	}
+	if(step_1_i==0)max_value=step_1_value[step_1_i];
+	if(max_value<step_1_value[step_1_i]){load=step_1_i;}
+	undown_color_temp(seat_1_max[].x,seat_1_max[].y)
+}
+a=step_1_value[load].x;
+b=step_1_value[load].y;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//===========================================================================================第二步
+	for (step_2_i = 0; step_2_i < 15; step_2_i++) {								//清空并重新计算score值
+		for (step_2_j = 0; step_2_j < 15; step_2_j++) {
+			crossing[step_2_i][step_2_j].score = 0;
+			value_one(step_2_i,step_2_j,color);
+		}
+	}
+	search_one(crossing[][],seat_2_max[]);
+	for(step_2_i=0;step_2_i<5;step_2_i++){
+		down_color_temp(seat_2_max[step_2_i].x,seat_2_max[step_2_i].y,color);		//机器模拟落子
+		
+		//================================================================================================第三步{
+		for (step_3_i = 0; step_3_i < 15; step_3_i++) {								//清空并重新计算score值
+			for (step_3_j = 0; step_3_j < 15; step_3_j++) {
+			crossing[step_3_i][step_3_j].score = 0;
+			value_one(step_3_i,step_3_j,color);
+			}
+		}
+		search_one(crossing[][],seat_3_max[]);
+		for(step_3_i=0;step_3_i<5;step_3_i++){
+			down_color_temp(seat_3_max[step_3_i].x,seat_3_max[step_3_i].y,color);		//机器模拟落子
+			step_3_value[step_3_i]=value_whole(seat_max[step_3_i].x,seat_max[step_3_i].y,color);//计算value_whole
+
+			if(step_2_i>0){																//剪枝
+				if(max_2_value[step_2_i-1]<step_3_value[step_3_i]){
+					max_2_value[step_2_i]=step_3_value[step_3_i];
+					break;
+				}
+			}
+			undown_color_temp(seat_max[step_3_i].x,seat_max[step_3_i].y,color);		//注销机器模拟的落子3
+		}	
+		//=======================================================================================================}
+
+		undown_color_temp(seat_max[step_2_i].x,seat_max[step_2_i].y,color);		//注销机器模拟的落子2	
+	}
+	//min_2_value=search_min(step_3_value);											//寻找记录最小值
+	min_2_value=
+		for(step_2_i=0;step_2_i<5;step_2_i++){
+			if(min_2_value>)
+		}
+	//==========================================================================================================}
+	max_1_value[step_1_i]=search(step_2_value);
+
+	undown_color_temp(seat_max[step_1_i].x,seat_max[step_1_i].y,color);		//注销机器模拟的落子1	
+}
+//===============================================================================================================}
+max_1_value[step_1_i]=search(step_2_value);
+
+
+
+/*==================================================================
+===void search_one(coordinate crossing[][],coordinate *seat_max[]);
+===作用:寻找并保存5个最高点位
+===参数:
+===crossing[][]:棋盘局势
+===seat_max[]:最高值点位
+===================================================================*/
+
+void search_one(coordinate crossing[][],coordinate *seat_max[]){
+	int  i,j;
+	coordinate crosssed[15][15];//保存坐标点位
+	coordinate seat_max[5]={0};
+	crossed=crossing;
+	
+	for (i = 0; i < 15; i++) {					//寻找价值最高点
+		for (j = 0; j < 15; j++) {
+			if (crossed[seat_max[0].x][seat_max[0].y].score < crossed[i][j].score) {
+				//x = i; y = j;
+				seat_max[0]=crossed[i][j];
+				seat_max[]=value_sort(seat_max[]);
+			}
+		}
+	}
+	return;
+}
