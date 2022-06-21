@@ -1,0 +1,162 @@
+//思路
+//对弈算法
+choicew（）{				//黑棋先手
+	definecrossing();	//定义交叉点
+	while（true）{
+		getmousemsg（）；	//判断鼠标位置
+		downblack（）；		//黑棋落子
+		if(judge(black)){	//判断黑棋是否胜利
+			win_b();		//结束，黑棋胜利
+			return();
+		}else{
+			for（crossing[i][j]==0){
+				crossing[i][j].sorce=0;//清空内容
+				value_one(int x,int y,int color);//判断指定位置价值并写入
+			}
+			static struct value_max[10];
+			for（crossing[i][j]==0){				//搜索并保存value值最大的10个点位	
+				if(crossing[i][j]<min(value_max)){
+					main(value_max)=crossing
+				}
+			}
+			/**************************************************///深度搜索
+			for(x in value_max){				//保存每个落点的value_whole
+					
+			}
+			/*************************************************///
+			a=x;b=y;							//保存最优解
+		}
+		down_white(int x,int y,int color);
+		judge(white){						//判断白色是否胜利
+			win_w();
+			return ;
+		}
+	}
+}
+/*=====================================
+===	关键点： 
+===	value_one()函数
+===	深度搜索
+=======================================*/
+
+
+//value_one()
+int value_one(int x,int y,int color){
+	if(crossing[i][j].rt!=0){			//只有空点位才能落子
+		return ;
+	}esle{
+		int v1=value_num(int x1,int y1,int color,int dirction);
+		int v2=value_num(int x1,int y1,int color,int dirction);
+		int v3=value_num(int x1,int y1,int color,int dirction);
+		int v4=value_num(int x1,int y1,int color,int dirction);
+		int value=v1+v2+v3+v4;
+		crossing[i][j].sroce=value
+	}
+
+}
+
+/*=============================================
+===int value_num(int x,int y,int color,int direction);
+===函数作用：
+===计算在指定方向上的价值
+===========================
+===思路：
+===计算有多少个己方五元组，每个五元组中每有n个己方棋子得分5^n分
+===计算有多少个对方的五元组，每个五元组中每有n个对方棋子得-（5^(n+1))分。
+===即：
+===每个五元组中 		我方得分 		对方得分（我放的分的3/4）
+=== 有几个棋子
+=== 	0 				1 				1
+=== 	1 				5 				4
+===		2 				25 				18
+===		3 				125				94
+===		4 				10000			7500
+
+
+
+===============================================*/
+int  value_numm(int x,int y,int color,int dircetion){
+	if(color==b)colour=w;
+	elseif(color==w)colour=b;
+	int value=0;//指定方向上的价值
+	if(direction==upanddown){
+		int i0, j0,i1,j1,i2,j2;
+		/*=====================
+		==i0,j0:保存落子位置
+		==i1,j1:上边界位置
+		==i2,j2:下边界位置
+		=====================*/
+		int l;	//规定方向最大距离
+		int value=0;
+		i0 = i;
+		j0 = j;
+		k = 0;
+		l = 4;
+		{
+			//检查上边边界位置
+			while (crossing[i][j-1].rt != colour && j - 1 >= 0&&l>0)
+			{
+				l--;
+				j -= 1;
+			}
+			j1=j;
+			//还原落子位置
+			i = i0;
+			j = j0;
+			l=4;
+			//检查下方边界位置
+			while (crossing[i][j + 1].rt == colour && j + 1 <= 14&&l>0)
+			{
+				l--;
+				j += 1;
+			}
+			j2=j;
+			l=j2-j1;//l为该方向可用的最大长度
+			if(l<5){
+			return value;	//无法在该方向组成5子，那将毫无意义
+			}else{
+				for(k=0;k<l-4;k++){
+					num=0;					//该五元组中有几个我方棋子
+					for(j=j1;j<j1+5;j++){
+						if(crossing[i][j].rt==color)num++;
+					}
+					value=value+value_count(one_num);
+					j1++;
+				}
+			}
+
+		}
+	}else if(direction==leftandright){
+		//...
+	}else if(direction==upleftanddownright){
+		//...
+	}else if(direction==downleftandupright){
+		//...
+	}
+}
+
+
+{
+switch(num){
+					case 1:
+						value+=1;
+						break;
+					case 2:
+						value+=5;
+						break;
+					case 3:
+						value+=25;
+						break;
+					case 4:
+										//已经有四个子，加上要落得子共5子胜利！
+						value+=10000;//胜利！
+						if(color=b)win_b();
+						else if(color=w)win_w();
+						break;
+					}
+}
+
+//深度搜索算法
+
+
+
